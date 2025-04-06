@@ -225,53 +225,6 @@ class ApiController extends Controller
         return response()->json(['mensagem' => 'webhook processado']);
     }
 
-    public function consultarApi($remoteJid){
-        
-        $phoneNumber = preg_replace('/\D/', '', $remoteJid);
-        
-        dd($phoneNumber);
-
-        $this->enviarMsg($phoneNumber, "Estamos buscando seu usuário...");
-
-        $get_clients_all = $this->coreService->get_clients_all();
-
-        $usuarioEncontrado = false;
-
-        foreach ($get_clients_all['data'] as $cliente) {
-          
-            $notas = $cliente['reseller_notes'];
-                
-            parse_str(str_replace(';', '&', $notas), $dados);
-
-            if(isset($dados['nome']) && isset($dados['fone'])){
-                
-                $nome = $dados['nome'];
-                $fone = $dados['fone'];
-                
-                if (strpos(strval($phoneNumber), $fone) !== false) {
-                    $text = "Encontramos seus dados! Segue abaixo:";
-                    $this->enviarMsg($phoneNumber, $text);
-                    
-                    $text = "Usuário: " . $cliente['username'];
-                    $this->enviarMsg($phoneNumber, $text);
-
-                    $text = "Senha: " . $cliente['password'];
-                    $this->enviarMsg($phoneNumber, $text);
-                    
-                    $usuarioEncontrado = true;
-
-                    break;
-                }
-            }
-        }
-
-        if(!$usuarioEncontrado){
-            $this->enviarMsg($phoneNumber, "Não encontramos seu usuário...");
-        }
-
-        return response()->json($get_clients_all);
-    }
-
     public function enviarMsg($phoneNumber, $text){
 
         $body = [
