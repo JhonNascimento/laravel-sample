@@ -158,7 +158,7 @@ class ApiController extends Controller
 
         $pagamento = $this->mercadoPagoService->validarPagamento($paymentId);
 
-        //dd($pagamento);
+        dd($pagamento);
 
         // Formatação de valores
         $valor = number_format($pagamento["transaction_amount"], 2, ",", ".");

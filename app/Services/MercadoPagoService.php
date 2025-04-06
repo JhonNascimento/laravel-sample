@@ -34,7 +34,7 @@ class MercadoPagoService
             'Authorization' => $this->authorization,
             'X-Idempotency-Key' => uniqid('', true),
         ])->post($this->baseUrl, $data);
-
+            
         return $response->json();
     }
 
@@ -47,6 +47,7 @@ class MercadoPagoService
             'external_reference' => $referencia,
             'payer' => ['email' => env('mp_payer_email')],
         ];
+        dd($data);
         return $this->postData($data);
     }
 
