@@ -28,15 +28,17 @@ class ApiController extends Controller
 
         //dd($get_client);
 
-        $mensagem = "";
         if($get_client['result']){
-            $vencimento = Carbon::createFromTimestamp($get_client['data']['exp_date'])->format('d/m/Y H:i');
-            $mensagem .= "Cliente encontrado! O vencimento do cliente é em: " . $vencimento;
-        }else{
-            $mensagem .= "Cliente não encontrado!";
+            $vencimento = Carbon::createFromTimestamp($get_client['data']['exp_date']);
+            if ($vencimento->isPast()) {
+                $get_client['data']['vencido'] = true;
+            } else {
+                $get_client['data']['vencido'] = false;
+            }
+            $get_client['data']['vencimento'] = $vencimento->format('d/m/Y H:i');
         }
         
-        return response()->json(['mensagem' => $mensagem]);
+        return response()->json($get_client);
     }
 
     public function criarTeste(Request $request, $cpf, $remoteJid, $bouquet){
