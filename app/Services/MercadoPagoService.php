@@ -11,7 +11,7 @@ class MercadoPagoService
 
     public function __construct()
     {
-        $this->authorization = env('mp_authorization'); // Pegamos a API Key do .env
+        $this->authorization = 'Bearer ' . env('mp_authorization'); // Pegamos a API Key do .env
         $this->baseUrl = env('mp_url');
     }
 

@@ -113,6 +113,8 @@ class ApiController extends Controller
 
         $mercadoPagoService = $this->mercadoPagoService->gerarPagamento($referencia);
 
+        dd($mercadoPagoService);
+
         $id = $mercadoPagoService['id'];
         $qr_code = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code'];
         $qr_code_base64 = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code_base64'];
