@@ -47,7 +47,6 @@ class MercadoPagoService
             'external_reference' => $referencia,
             'payer' => ['email' => env('mp_payer_email')],
         ];
-        dd($data);
         return $this->postData($data);
     }
 

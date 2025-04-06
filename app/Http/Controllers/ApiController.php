@@ -98,7 +98,7 @@ class ApiController extends Controller
         return response()->json(['mensagem' => $mensagem]);
     }
 
-    public function criarPagamento(Request $request, $cpf, $remoteJid){
+    public function criarPagamento(Request $request, $cpf, $remoteJid, $servico = "TV"){
         
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
@@ -109,11 +109,11 @@ class ApiController extends Controller
 
         //$idEmpotency = $telefone .'-'. date('Y-m-d');
 
-        $referencia = $cpf . '-'. $telefone .'-'. date('Ymd');
+        $referencia = $cpf . '-'. $telefone .'-'. date('Ymd') . '-'. $servico;
 
         $mercadoPagoService = $this->mercadoPagoService->gerarPagamento($referencia);
 
-        dd($mercadoPagoService);
+        //dd($mercadoPagoService);
 
         $id = $mercadoPagoService['id'];
         $qr_code = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code'];
@@ -158,7 +158,11 @@ class ApiController extends Controller
 
         $pagamento = $this->mercadoPagoService->validarPagamento($paymentId);
 
-        dd($pagamento);
+        if (isset($pagamento['error'])) {
+            return response()->json(['error' => 'Erro ao validar o pagamento.'], 400);
+        }
+
+        //dd($pagamento);
 
         // Formatação de valores
         $valor = number_format($pagamento["transaction_amount"], 2, ",", ".");
@@ -173,6 +177,7 @@ class ApiController extends Controller
         $cpf = $partes[0];       // "89695895204"
         $telefone = $partes[1];  // "559299780134"
         $data = $partes[2];      // "20250403"
+        $servico = $partes[3];      // "TV ou NP"
         
         // Status do pagamento
         $status = $pagamento["status"];
