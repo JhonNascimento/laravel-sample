@@ -40,7 +40,7 @@ class RotinaVencidos extends Command
     public function handle()
     {
         // Chama a rota para vencimento ha 5 dias
-        $response5 = Http::get(env('APP_URL') . '/api/rotina-vencidos/5');
+        $response5 = Http::get(env('APP_URL') . '/api/rotina-vencidos/3');
         if ($response5->successful()) {
             $this->info(now() . ' - Rota vencidos a 5 dias chamada com sucesso!' . $response5->body());
             Log::info('Rota vencidos a 5 dias chamada com sucesso!' . $response5->body());
