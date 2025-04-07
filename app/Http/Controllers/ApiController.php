@@ -329,7 +329,7 @@ class ApiController extends Controller
                     
                         $nome = $dados['nome'];
                         $fone = $dados['fone'];
-                        $fone = "559299780134";
+                        //$fone = "559299780134";
                         
                         $this->enviarMsg($fone, "olá $nome, informamos que o seu serviço de IPTV vence em: $vencimento! Para regularizar, responda essa mensagem solicitando a renovação dos serviços.");
                         
