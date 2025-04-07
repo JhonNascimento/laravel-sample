@@ -233,19 +233,9 @@ class ApiController extends Controller
         
         return response()->json(['mensagem' => 'webhook processado']);
     }
-
-    public function enviarMsg($phoneNumber, $text){
-
-        $body = [
-            "number" => $phoneNumber,
-            "text"=> $text
-        ];
-
-        $this->evolutionService->sendText($body);
-    }
-    
+ 
     // rotinas
-    public function vencimento(Request $request, $dia){
+    public function rotinaVencer(Request $request, $dia){
         
         if (!is_numeric($dia)) {
             return response()->json(['message' => 'O parâmetro dia deve ser um número.'], 400);
@@ -260,6 +250,8 @@ class ApiController extends Controller
             $clientesVencimento = Carbon::createFromTimestamp($cliente['exp_date'])->format('Y-m-d');
             return $clientesVencimento == $diasDoVencimento;
         });
+
+        dd($clientesVencidos);
         
         $clientesCobrados = [];
 
@@ -300,6 +292,63 @@ class ApiController extends Controller
         }
 
         return response()->json($clientesCobrados);
+    }
+
+    public function rotinaVencidos(Request $request, $dia){
+        
+        if (!is_numeric($dia)) {
+            return response()->json(['message' => 'O parâmetro dia deve ser um número.'], 400);
+        }
+
+        $get_clients_all = $this->coreService->get_clients_all();
+        $clientes = $get_clients_all['data'] ?? [];
+        
+        $diasDoVencimento = Carbon::now()->subDays($dia)->format('Y-m-d');
+        
+        $clientesVencidos = array_filter($clientes, function ($cliente) use ($diasDoVencimento) {
+            $clientesVencimento = Carbon::createFromTimestamp($cliente['exp_date'])->format('Y-m-d');
+            return $clientesVencimento == $diasDoVencimento;
+        });
+
+        //dd($clientesVencidos);
+        
+        $clientesCobrados = [];
+
+        foreach ($clientesVencidos as $cliente) {
+          
+            if (isset($cliente['exp_date'])) {
+                
+                $expDate = Carbon::createFromTimestamp($cliente['exp_date']);
+                $vencimento = $expDate->format('d/m/Y H:i');
+                
+                $notas = $cliente['reseller_notes'];
+                
+                parse_str(str_replace(';', '&', $notas), $dados);
+
+                if(isset($dados['nome']) && isset($dados['fone'])){
+                    
+                        $nome = $dados['nome'];
+                        $fone = $dados['fone'];
+                        $fone = "559299780134";
+                        
+                        $this->enviarMsg($fone, "olá $nome, informamos que o seu serviço de IPTV vence em: $vencimento! Para regularizar, responda essa mensagem solicitando a renovação dos serviços.");
+                        
+                        $clientesCobrados[$nome] = $fone;
+                }
+            }
+        }
+
+        return response()->json($clientesCobrados);
+    }
+
+    public function enviarMsg($phoneNumber, $text){
+
+        $body = [
+            "number" => $phoneNumber,
+            "text"=> $text
+        ];
+
+        $this->evolutionService->sendText($body);
     }
   
 }

@@ -27,7 +27,8 @@ Route::get('/criar-pagamento/{cpf}/{remoteJid}', [ApiController::class, 'criarPa
 Route::post('/webhook-pagamento', [ApiController::class, 'webhookPagamento']);
 
 // rotinas
-Route::get('/vencimento/{dia}', [ApiController::class, 'vencimento']);
+Route::get('/rotina-vencer/{dia}', [ApiController::class, 'rotinaVencer']);
+Route::get('/rotina-vencidos/{dia}', [ApiController::class, 'rotinaVencidos']);
 
 Route::get('/', function () {
     return response()->json([
