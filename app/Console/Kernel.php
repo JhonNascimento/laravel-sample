@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('rotina:vencer')->dailyAt('20:00')->appendOutputTo(storage_path('logs/rotina_vencer.log'));
-        $schedule->command('rotina:vencidos')->dailyAt('18:36')->appendOutputTo(storage_path('logs/rotina_vencidos.log'));
+        //$schedule->command('rotina:vencer')->dailyAt('20:00')->appendOutputTo(storage_path('logs/rotina_vencer.log'));
+        //$schedule->command('rotina:vencidos')->dailyAt('18:36')->appendOutputTo(storage_path('logs/rotina_vencidos.log'));
     }
 
     /**
