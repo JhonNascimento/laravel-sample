@@ -48,5 +48,14 @@ class RotinaVencidos extends Command
             $this->error(now() . ' - Falha ao chamar a rota vencidos a 5 dias. Código: ' . $response5->status());
             Log::error('Falha ao chamar a rota vencidos a 5 dias. Código: ' . $response5->status());
         }
+
+        $response10 = Http::get(env('APP_URL') . '/api/rotina-vencidos/10');
+        if ($response10->successful()) {
+            $this->info(now() . ' - Rota vencidos a 10 dias chamada com sucesso!' . $response10->body());
+            Log::info('Rota vencidos a 10 dias chamada com sucesso!' . $response10->body());
+        } else {
+            $this->error(now() . ' - Falha ao chamar a rota vencidos a 10 dias. Código: ' . $response10->status());
+            Log::error('Falha ao chamar a rota vencidos a 10 dias. Código: ' . $response10->status());
+        }
     }
 }

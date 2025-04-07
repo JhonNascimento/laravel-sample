@@ -251,7 +251,7 @@ class ApiController extends Controller
             return $clientesVencimento == $diasDoVencimento;
         });
 
-        dd($clientesVencidos);
+        //dd($clientesVencidos);
         
         $clientesCobrados = [];
 
@@ -272,20 +272,8 @@ class ApiController extends Controller
                   $nome = $dados['nome'];
                   $fone = $dados['fone'];
 
-                  $body = [
-                    "number" => "55" . $fone,
-                    "text"=> "olá $nome, informamos que o seu serviço de IPTV vence em: $vencimento! Para regularizar, acesse seu portal de serviços."
-                  ];
-
-                  $this->evolutionService->sendText($body);
+                  $this->enviarMsg($fone, "olá $nome, informamos que o seu serviço de IPTV vence em: $vencimento! Para regularizar, acesse seu portal de serviços.");
                   
-                  $body = [
-                    "number" => "55" . $fone,
-                    "text"=> "https://clienteiptv.com"
-                  ];
-                  
-                  $this->evolutionService->sendText($body);
-
                   $clientesCobrados[$nome] = $fone;
               }
           }
@@ -331,7 +319,7 @@ class ApiController extends Controller
                         $fone = $dados['fone'];
                         //$fone = "559299780134";
                         
-                        $this->enviarMsg($fone, "olá $nome, informamos que o seu serviço de IPTV vence em: $vencimento! Para regularizar, responda essa mensagem solicitando a renovação dos serviços.");
+                        $this->enviarMsg($fone, "olá $nome, informamos que o seu serviço de IPTV venceu em: $vencimento! Para regularizar, responda essa mensagem solicitando a renovação dos serviços.");
                         
                         $clientesCobrados[$nome] = $fone;
                 }
