@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         //$schedule->command('rotina:vencer')->dailyAt('20:00')->appendOutputTo(storage_path('logs/rotina_vencer.log'));
-        $schedule->command('rotina:vencidos')->dailyAt('20:00')->appendOutputTo(storage_path('logs/rotina_vencidos.log'));
+        $schedule->command('rotina:vencidos')->dailyAt('21:00')->appendOutputTo(storage_path('logs/rotina_vencidos.log'));
     }
 
     /**
