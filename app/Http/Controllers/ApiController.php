@@ -20,11 +20,13 @@ class ApiController extends Controller
         $this->mercadoPagoService = $mercadoPagoService;
     }
     
-    public function consultarUsuario(Request $request, $cpf){
+    public function consultarUsuario(Request $request, $remoteJid){
     
-        Log::info("consultarUsuario: " . $cpf);
+        $telefone = preg_replace('/\D/', '', $remoteJid);
 
-        $get_client = $this->coreService->get_client(['username' => $cpf]);
+        Log::info("consultarUsuario: " . $telefone);
+
+        $get_client = $this->coreService->get_client(['username' => $telefone]);
 
         //dd($get_client);
 
@@ -41,41 +43,29 @@ class ApiController extends Controller
         return response()->json($get_client);
     }
 
-    public function criarTeste(Request $request, $cpf, $remoteJid, $bouquet){
+    public function criarTeste(Request $request, $remoteJid, $bouquet){
         
         $telefone = preg_replace('/\D/', '', $remoteJid);
-        
-        Log::info("criarTeste: $cpf, $telefone, $bouquet");
 
-        //dd($telefone);
-        
+        Log::info("criarTeste: $telefone, $bouquet");
+
         if($bouquet == 0){
-            $idbouquet = ["1","2","3"];
+            $idbouquet = ["1","2","3"]; // sem adultos
         }else{
-            $idbouquet = ["1","2","3","4"];
+            $idbouquet = ["1","2","3","4"]; // com adultos
         }
 
-        // Gera duas letras maiúsculas aleatórias
-        $letras = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2));
-
-        // Gera quatro números aleatórios
-        $numeros = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
-
-        $password = $letras . $numeros;
+        $password = $this->gerarSenha();
 
         $data = [
-            'username' => $cpf,
+            'username' => $telefone,
             'password' => $password,
             'idbouquet' => $idbouquet,
-            'notes' => "fone=$telefone;",
+            'notes' => "Criação de teste automática",
         ];
 
-        //dd($data);
-
         $trial_create = $this->coreService->trial_create($data);
-
-        //dd($trial_create);
-
+        
         if($trial_create['result']){
             
             $username = $trial_create['data']['username'];
@@ -98,32 +88,29 @@ class ApiController extends Controller
         return response()->json(['mensagem' => $mensagem]);
     }
 
-    public function criarPagamento(Request $request, $cpf, $remoteJid, $servico = "TV"){
-        
+    public function criarPagamento(Request $request, $remoteJid, $servico = "TV"){
+
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
-        Log::info("criarPagamento telefone: " . $telefone);
-        Log::info("criarPagamento cpf: " . $cpf);
-
-        //dd($remoteJid);
-
-        //$idEmpotency = $telefone .'-'. date('Y-m-d');
-
-        $referencia = $cpf . '-'. $telefone .'-'. date('Ymd') . '-'. $servico;
+        Log::info("criarPagamento: $telefone, $servico");
+        
+        $referencia = $telefone .'-'. date('Ymd') . '-'. $servico;
 
         $mercadoPagoService = $this->mercadoPagoService->gerarPagamento($referencia);
+
+        if(isset($mercadoPagoService['error'])){
+            return response()->json(['error' => 'Erro ao gerar o pagamento.'], 400);
+        }
 
         //dd($mercadoPagoService);
 
         $id = $mercadoPagoService['id'];
         $qr_code = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code'];
-        $qr_code_base64 = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code_base64'];
+        //$qr_code_base64 = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code_base64'];
         $status = $mercadoPagoService['status']; // pending, approved, rejected, etc.
         $status_detail = $mercadoPagoService['status_detail']; // pending_waiting_transfer
         $ticket_url = $mercadoPagoService['point_of_interaction']['transaction_data']['ticket_url'];
         $valor = $mercadoPagoService['transaction_amount'];
-
-        //dd($mercadoPagoService);
 
         $mensagem = "📝 **Pagamento Gerado!**\n";
         $mensagem .= "Seu pagamento de **R$ {$valor}** foi criado com sucesso.\n\n";
@@ -131,15 +118,11 @@ class ApiController extends Controller
         $mensagem .= "📌 **Referência:** {$referencia}\n\n";
         $mensagem .= "📌 **Status Inicial:** {$status} ({$status_detail})\n\n";
 
-        if (!empty($qr_code)) {
-            $mensagem .= "📥 Copie e cole o código PIX no seu app bancário:\n";
-            $mensagem .= "```\n{$qr_code}\n```\n";
-        } 
+        $mensagem .= "📥 Copie e cole o código PIX no seu app bancário:\n";
+        $mensagem .= "```\n{$qr_code}\n```\n";
 
-        if (!empty($ticket_url)) {
-            $mensagem .= "📄 **Boleto ou link para pagamento:**\n";
-            $mensagem .= "[Clique aqui para pagar]({$ticket_url})\n";
-        }
+        $mensagem .= "📄 **Boleto ou link para pagamento:**\n";
+        $mensagem .= "[Clique aqui para pagar]({$ticket_url})\n";
 
         $mensagem .= "\n⏳ Aguarde a confirmação do pagamento. O status será atualizado automaticamente.\n";
         $mensagem .= "\n⏳ Ou digite validar pagamento, para validarmos o seu pagamento.\n";
@@ -152,8 +135,6 @@ class ApiController extends Controller
     
         Log::info("webhookPagamento: ", $request->all());
         
-        //dd($remoteJid);
-
         $paymentId = $request->input('data.id');
 
         $pagamento = $this->mercadoPagoService->validarPagamento($paymentId);
@@ -174,16 +155,15 @@ class ApiController extends Controller
         $partes = explode('-', $referencia);
 
         // Atribuindo os valores a variáveis
-        $cpf = $partes[0];       // "89695895204"
-        $telefone = $partes[1];  // "559299780134"
-        $data = $partes[2];      // "20250403"
-        $servico = $partes[3];      // "TV ou NP"
+        $telefone = $partes[0];  // "559299780134"
+        $data = $partes[1];      // "20250403"
+        $servico = $partes[2];   // "TV ou NP"
         
         // Status do pagamento
         $status = $pagamento["status"];
         $status_detalhado = $pagamento["status_detail"];
 
-        //$status = "approved";
+        //$status = "approved"; // somente testes
 
         // Mensagem com base no status
         if ($status === "approved") {
@@ -197,10 +177,10 @@ class ApiController extends Controller
             $this->enviarMsg($telefone, $mensagem);
 
             // libera servico 1 mes do cliente
-            
-            $renew_client = $this->coreService->renew_client(['username' => $cpf, 'month' => 1]);
+            $renew_client = $this->coreService->renew_client(['username' => $telefone, 'month' => 1]);
 
             if($renew_client['result']){
+
                 // Pegando os dados retornados pela API
                 $username = $renew_client['data']['username'];
                 $mes = $renew_client['data']['month'];
@@ -223,6 +203,7 @@ class ApiController extends Controller
         }
         
         if ($status === "rejected") {
+
             $mensagem = "❌ **Pagamento Recusado!**\n";
             $mensagem .= "Infelizmente, seu pagamento não foi aprovado.\n\n";
             $mensagem .= "🚨 **Motivo:** {$status_detalhado}\n";
@@ -236,12 +217,20 @@ class ApiController extends Controller
  
     public function enviarMsg($phoneNumber, $text){
 
-        $body = [
-            "number" => $phoneNumber,
-            "text"=> $text
-        ];
+        $body = ["number" => $phoneNumber, "text"=> $text];
 
         $this->evolutionService->sendText($body);
+    }
+
+    public function gerarSenha()
+    {
+        // Gera duas letras maiúsculas aleatórias
+        $letras = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 2));
+
+        // Gera quatro números aleatórios
+        $numeros = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        return $letras . $numeros;
     }
   
 }
