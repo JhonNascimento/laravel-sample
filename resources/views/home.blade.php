@@ -213,7 +213,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center;">
+                    <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center;">
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-md-6 text-white">
@@ -415,13 +415,13 @@
                         </div>
                         <div class="col-6 col-md-3 col-lg-2">
                             <div class="channel-card text-center">
-                                <img src="https://seeklogo.com/images/D/discovery-kids-logo-036E740AF8-seeklogo.com.png" alt="Discovery Kids" class="img-fluid mb-2">
+                                <img src="https://seeklogo.com/images/D/discovery-kids-2021-logo-918E4E604F-seeklogo.com.png" alt="Discovery Kids" class="img-fluid mb-2">
                                 <p class="mb-0">Discovery Kids</p>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 col-lg-2">
                             <div class="channel-card text-center">
-                                <img src="https://seeklogo.com/images/B/boomerang-logo-84F84B6B89-seeklogo.com.png" alt="Boomerang" class="img-fluid mb-2">
+                                <img src="https://seeklogo.com/images/B/Boomerang-logo-6B18789F35-seeklogo.com.png" alt="Boomerang" class="img-fluid mb-2">
                                 <p class="mb-0">Boomerang</p>
                             </div>
                         </div>
@@ -433,7 +433,7 @@
                         </div>
                         <div class="col-6 col-md-3 col-lg-2">
                             <div class="channel-card text-center">
-                                <img src="https://seeklogo.com/images/D/discovery-channel-logo-1C444AD87A-seeklogo.com.png" alt="Discovery Channel" class="img-fluid mb-2">
+                                <img src="https://seeklogo.com/images/D/Discovery_Channel-logo-B0EC00FE82-seeklogo.com.png" alt="Discovery Channel" class="img-fluid mb-2">
                                 <p class="mb-0">Discovery Channel</p>
                             </div>
                         </div>
