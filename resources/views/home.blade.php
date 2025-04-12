@@ -415,12 +415,6 @@
                         </div>
                         <div class="col-6 col-md-3 col-lg-2">
                             <div class="channel-card text-center">
-                                <img src="https://seeklogo.com/images/D/disney-channel-logo-1C444AD87A-seeklogo.com.png" alt="Disney Channel" class="img-fluid mb-2">
-                                <p class="mb-0">Disney Channel</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 col-lg-2">
-                            <div class="channel-card text-center">
                                 <img src="https://seeklogo.com/images/D/discovery-kids-logo-036E740AF8-seeklogo.com.png" alt="Discovery Kids" class="img-fluid mb-2">
                                 <p class="mb-0">Discovery Kids</p>
                             </div>
@@ -437,18 +431,18 @@
                                 <p class="mb-0">Nick Jr.</p>
                             </div>
                         </div>
+                        <div class="col-6 col-md-3 col-lg-2">
+                            <div class="channel-card text-center">
+                                <img src="https://seeklogo.com/images/D/discovery-channel-logo-1C444AD87A-seeklogo.com.png" alt="Discovery Channel" class="img-fluid mb-2">
+                                <p class="mb-0">Discovery Channel</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Documentários -->
                 <div class="tab-pane fade" id="documentarios" role="tabpanel">
                     <div class="row g-4">
-                        <div class="col-6 col-md-3 col-lg-2">
-                            <div class="channel-card text-center">
-                                <img src="https://logodownload.org/wp-content/uploads/2017/04/discovery-channel-logo.png" alt="Discovery Channel" class="img-fluid mb-2">
-                                <p class="mb-0">Discovery Channel</p>
-                            </div>
-                        </div>
                         <div class="col-6 col-md-3 col-lg-2">
                             <div class="channel-card text-center">
                                 <img src="https://logodownload.org/wp-content/uploads/2017/04/national-geographic-logo.png" alt="National Geographic" class="img-fluid mb-2">
@@ -465,12 +459,6 @@
                             <div class="channel-card text-center">
                                 <img src="https://logodownload.org/wp-content/uploads/2020/06/animal-planet-logo.png" alt="Animal Planet" class="img-fluid mb-2">
                                 <p class="mb-0">Animal Planet</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 col-lg-2">
-                            <div class="channel-card text-center">
-                                <img src="https://logodownload.org/wp-content/uploads/2019/09/discovery-science-logo.png" alt="Discovery Science" class="img-fluid mb-2">
-                                <p class="mb-0">Discovery Science</p>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 col-lg-2">
@@ -592,20 +580,25 @@
                     <div class="card bg-primary text-white mb-4">
                         <div class="card-body text-center">
                             <div class="row align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <i class="fas fa-futbol fa-5x mb-3"></i>
                                     <h4>Futebol</h4>
                                     <p>Campeonatos Nacionais e Internacionais</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <i class="fas fa-basketball-ball fa-5x mb-3"></i>
                                     <h4>Basquete</h4>
                                     <p>NBA e Liga Nacional</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <i class="fas fa-flag-checkered fa-5x mb-3"></i>
                                     <h4>Fórmula 1</h4>
                                     <p>Corridas ao vivo</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <i class="fas fa-fist-raised fa-5x mb-3"></i>
+                                    <h4>UFC</h4>
+                                    <p>Lutas ao vivo</p>
                                 </div>
                             </div>
                         </div>
