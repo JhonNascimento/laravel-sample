@@ -264,7 +264,7 @@
                         <a class="nav-link" href="#contato">Contato</a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-whatsapp" target="_blank">
+                        <a href="https://wa.me/559285565783?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-whatsapp" target="_blank">
                             <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                         </a>
                     </li>

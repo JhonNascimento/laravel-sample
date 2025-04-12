@@ -161,7 +161,7 @@
                                     <p class="lead mb-4">Assista seus canais favoritos em qualquer dispositivo, a qualquer hora!</p>
                                     <div class="d-flex gap-3">
                                         <a href="#planos" class="btn btn-primary btn-lg">Conheça Nossos Planos</a>
-                                        <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
+                                        <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
                                             <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                         </a>
                                     </div>
@@ -172,7 +172,7 @@
                                         <p class="mb-4">Não deixe para depois, você não vai querer ficar de fora dessa.</p>
                                         <div class="d-flex gap-2">
                                             <a href="#duvidas" class="btn btn-outline-light">Dúvidas</a>
-                                            <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
+                                            <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
                                                 <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                             </a>
                                         </div>
@@ -191,7 +191,7 @@
                                     <p class="lead mb-4">Mais de 10.000 canais em HD e conteúdo exclusivo!</p>
                                     <div class="d-flex gap-3">
                                         <a href="#planos" class="btn btn-primary btn-lg">Conheça Nossos Planos</a>
-                                        <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
+                                        <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
                                             <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                         </a>
                                     </div>
@@ -202,7 +202,7 @@
                                         <p class="mb-4">Catálogo completo atualizado diariamente com os melhores conteúdos.</p>
                                         <div class="d-flex gap-2">
                                             <a href="#planos" class="btn btn-outline-light">Ver Planos</a>
-                                            <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
+                                            <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
                                                 <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                             </a>
                                         </div>
@@ -221,7 +221,7 @@
                                     <p class="lead mb-4">Todos os seus serviços de streaming em um só lugar!</p>
                                     <div class="d-flex gap-3">
                                         <a href="#planos" class="btn btn-primary btn-lg">Conheça Nossos Planos</a>
-                                        <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
+                                        <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
                                             <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                         </a>
                                     </div>
@@ -232,7 +232,7 @@
                                         <p class="mb-4">Acesso a todos os principais serviços de streaming em uma única assinatura.</p>
                                         <div class="d-flex gap-2">
                                             <a href="#planos" class="btn btn-outline-light">Ver Planos</a>
-                                            <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
+                                            <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
                                                 <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                             </a>
                                         </div>
@@ -251,7 +251,7 @@
                                     <p class="lead mb-4">Conteúdo exclusivo e atualizado diariamente!</p>
                                     <div class="d-flex gap-3">
                                         <a href="#planos" class="btn btn-primary btn-lg">Conheça Nossos Planos</a>
-                                        <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
+                                        <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success btn-lg" target="_blank">
                                             <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                         </a>
                                     </div>
@@ -262,7 +262,7 @@
                                         <p class="mb-4">Assista aos lançamentos dos principais serviços de streaming no mesmo dia.</p>
                                         <div class="d-flex gap-2">
                                             <a href="#planos" class="btn btn-outline-light">Ver Planos</a>
-                                            <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
+                                            <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-success" target="_blank">
                                                 <i class="fab fa-whatsapp me-2"></i>Solicitar Teste
                                             </a>
                                         </div>
@@ -547,10 +547,10 @@
                                 </div>
                             </div>
                             <div class="d-grid gap-2">
-                                <a href="https://wa.me/559200780134?text=Quero%20assinar%20o%20plano%20JK%20Play" class="btn btn-primary" target="_blank">
+                                <a href="https://wa.me/5592855657830?text=Quero%20assinar%20o%20plano%20JK%20Play" class="btn btn-primary" target="_blank">
                                     <i class="fab fa-whatsapp me-2"></i>Assinar Agora
                                 </a>
-                                <a href="https://wa.me/559200780134?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-outline-primary" target="_blank">
+                                <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-outline-primary" target="_blank">
                                     <i class="fas fa-play-circle me-2"></i>Teste Grátis
                                 </a>
                             </div>
