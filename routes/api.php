@@ -21,9 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // dify
-Route::get('/consultar-usuario/{remoteJid}', [ApiController::class, 'consultarUsuario']);
+Route::get('/consultar-usuario/{remoteJid}/{servico}', [ApiController::class, 'consultarUsuario']);
+
 Route::get('/criar-teste/{remoteJid}/{bouquet}', [ApiController::class, 'criarTeste']);
-Route::get('/criar-pagamento/{remoteJid}', [ApiController::class, 'criarPagamento']);
+Route::get('/criar-teste-noprivado/{remoteJid}', [ApiController::class, 'criarTesteNoprivado']);
+
+Route::get('/criar-pagamento/{remoteJid}/{servico}', [ApiController::class, 'criarPagamento']);
+
 Route::post('/webhook-pagamento', [ApiController::class, 'webhookPagamento']);
 
 // rotinas

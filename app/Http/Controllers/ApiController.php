@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TesteNoprivado;
 use App\Services\CoreService;
 use App\Services\EvolutionService;
 use App\Services\MercadoPagoService;
@@ -20,13 +21,17 @@ class ApiController extends Controller
         $this->mercadoPagoService = $mercadoPagoService;
     }
     
-    public function consultarUsuario(Request $request, $remoteJid){
+    public function consultarUsuario(Request $request, $remoteJid, $servico="TV"){
     
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
-        Log::info("consultarUsuario: " . $telefone);
+        Log::info("consultarUsuario: " . $telefone, $servico);
 
-        $get_client = $this->coreService->get_client(['username' => $telefone]);
+        if($servico == "TV"){
+            $get_client = $this->coreService->get_client(['username' => $telefone]);
+        }else{
+            $get_client = $this->coreService->get_noprivado(['username' => $telefone]);
+        }
 
         //dd($get_client);
 
@@ -88,46 +93,52 @@ class ApiController extends Controller
         return response()->json(['mensagem' => $mensagem]);
     }
 
-    public function criarPagamento(Request $request, $remoteJid, $servico = "TV"){
-
+    public function criarTesteNoprivado(Request $request, $remoteJid){
+        
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
-        Log::info("criarPagamento: $telefone, $servico");
-        
-        $referencia = $telefone .'-'. date('Ymd') . '-'. $servico;
+        //dd($telefone);
 
-        $mercadoPagoService = $this->mercadoPagoService->gerarPagamento($referencia);
+        Log::info("criarTesteNoprivado: $telefone");
 
-        if(isset($mercadoPagoService['error'])){
-            return response()->json(['error' => 'Erro ao gerar o pagamento.'], 400);
+        $existeAtivo = TesteNoprivado::where('status', 'active')
+            ->where('end_time', '>', Carbon::now())
+            ->exists();
+
+        if(!$existeAtivo){
+
+            $username = "JK4533";
+            $password = "JK4533";
+            
+            $data = ['username' => $username, 'status' => true];
+            $trial_create = $this->coreService->block_noprivado($data);    
+
+            //dd($trial_create);
+
+            if($trial_create['result']){
+                
+                $testeNoprivado = TesteNoprivado::create([
+                    'username' => $telefone,
+                    'start_time' => Carbon::now(),
+                    'end_time' => Carbon::now()->addMinutes(5),
+                    'status' => 'active'
+                ]);
+
+                if($testeNoprivado){
+                    $mensagem  = "⚠️ *Teste Criado com sucesso.*\n\n";
+                    $mensagem .= "🔐 *Usuário:* {$username}\n";
+                    $mensagem .= "🔑 *Senha:* {$password}\n";
+                    $mensagem .= "Aproveite e bom uso! 🚀"; 
+                }else{
+                    $mensagem  = "⚠️ *Nao foi possivel criar o teste.*\n\n";
+                }   
+            }else{
+                $mensagem  = "⚠️ *cliente já se encontra nesse status ativo.*\n\n";
+            }
+        }else{
+            $mensagem  = "⚠️ *Estamos com um teste em andamento, aguarde alguns minutos e tente novamente.*\n\n";
         }
-
-        //dd($mercadoPagoService);
-
-        $id = $mercadoPagoService['id'];
-        $qr_code = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code'];
-        //$qr_code_base64 = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code_base64'];
-        $status = $mercadoPagoService['status']; // pending, approved, rejected, etc.
-        $status_detail = $mercadoPagoService['status_detail']; // pending_waiting_transfer
-        $ticket_url = $mercadoPagoService['point_of_interaction']['transaction_data']['ticket_url'];
-        $valor = $mercadoPagoService['transaction_amount'];
-
-        $mensagem = "📝 **Pagamento Gerado!**\n";
-        $mensagem .= "Seu pagamento de **R$ {$valor}** foi criado com sucesso.\n\n";
-        $mensagem .= "🔢 **ID do Pagamento:** {$id}\n";
-        $mensagem .= "📌 **Referência:** {$referencia}\n\n";
-        $mensagem .= "📌 **Status Inicial:** {$status} ({$status_detail})\n\n";
-
-        $mensagem .= "📥 Copie e cole o código PIX no seu app bancário:\n";
-        $mensagem .= "```\n{$qr_code}\n```\n";
-
-        $mensagem .= "📄 **Boleto ou link para pagamento:**\n";
-        $mensagem .= "[Clique aqui para pagar]({$ticket_url})\n";
-
-        $mensagem .= "\n⏳ Aguarde a confirmação do pagamento. O status será atualizado automaticamente.\n";
-        $mensagem .= "\n⏳ Ou digite validar pagamento, para validarmos o seu pagamento.\n";
-        $mensagem .= "Se precisar de ajuda, entre em contato com nosso suporte. 🚀";
-
+        
         return response()->json(['mensagem' => $mensagem]);
     }
 
@@ -214,7 +225,50 @@ class ApiController extends Controller
         
         return response()->json(['mensagem' => 'webhook processado']);
     }
- 
+    
+    public function criarPagamento(Request $request, $remoteJid, $servico = "TV"){
+
+        $telefone = preg_replace('/\D/', '', $remoteJid);
+
+        Log::info("criarPagamento: $telefone, $servico");
+        
+        $referencia = $telefone .'-'. date('Ymd') . '-'. $servico;
+
+        $mercadoPagoService = $this->mercadoPagoService->gerarPagamento($referencia);
+
+        if(isset($mercadoPagoService['error'])){
+            return response()->json(['error' => 'Erro ao gerar o pagamento.'], 400);
+        }
+
+        //dd($mercadoPagoService);
+
+        $id = $mercadoPagoService['id'];
+        $qr_code = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code'];
+        //$qr_code_base64 = $mercadoPagoService['point_of_interaction']['transaction_data']['qr_code_base64'];
+        $status = $mercadoPagoService['status']; // pending, approved, rejected, etc.
+        $status_detail = $mercadoPagoService['status_detail']; // pending_waiting_transfer
+        $ticket_url = $mercadoPagoService['point_of_interaction']['transaction_data']['ticket_url'];
+        $valor = $mercadoPagoService['transaction_amount'];
+
+        $mensagem = "📝 **Pagamento Gerado!**\n";
+        $mensagem .= "Seu pagamento de **R$ {$valor}** foi criado com sucesso.\n\n";
+        $mensagem .= "🔢 **ID do Pagamento:** {$id}\n";
+        $mensagem .= "📌 **Referência:** {$referencia}\n\n";
+        $mensagem .= "📌 **Status Inicial:** {$status} ({$status_detail})\n\n";
+
+        $mensagem .= "📥 Copie e cole o código PIX no seu app bancário:\n";
+        $mensagem .= "```\n{$qr_code}\n```\n";
+
+        $mensagem .= "📄 **Boleto ou link para pagamento:**\n";
+        $mensagem .= "[Clique aqui para pagar]({$ticket_url})\n";
+
+        $mensagem .= "\n⏳ Aguarde a confirmação do pagamento. O status será atualizado automaticamente.\n";
+        $mensagem .= "\n⏳ Ou digite validar pagamento, para validarmos o seu pagamento.\n";
+        $mensagem .= "Se precisar de ajuda, entre em contato com nosso suporte. 🚀";
+
+        return response()->json(['mensagem' => $mensagem]);
+    }
+
     public function enviarMsg($phoneNumber, $text){
 
         $body = ["number" => $phoneNumber, "text"=> $text];

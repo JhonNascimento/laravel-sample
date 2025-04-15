@@ -53,6 +53,16 @@ class CoreService
         return $this->postData($dados);
     }
 
+    public function get_noprivado($dados){
+        $this->core_servico = 'get_noprivado';
+        return $this->postData($dados);
+    }
+
+    public function block_noprivado($dados){
+        $this->core_servico = 'block_noprivado';
+        return $this->postData($dados);
+    }
+
     public function trial_create($dados){
         $this->core_servico = 'trial_create';
         return $this->postData($dados);
