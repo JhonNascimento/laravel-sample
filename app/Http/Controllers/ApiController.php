@@ -25,7 +25,7 @@ class ApiController extends Controller
     
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
-        Log::info("consultarUsuario: " . $telefone, $servico);
+        Log::info("consultarUsuario: $telefone, $servico");
 
         if($servico == "TV"){
             $get_client = $this->coreService->get_client(['username' => $telefone]);
