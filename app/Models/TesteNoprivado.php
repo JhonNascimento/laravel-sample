@@ -43,20 +43,4 @@ class TesteNoprivado extends Model
         'end_time' => 'datetime',
     ];
 
-    /**
-     * Insere um novo registro de teste
-     *
-     * @param string $username
-     * @param string $whatsapp
-     * @return TesteNoprivado
-     */
-    public static function criarTeste($username, $whatsapp)
-    {
-        return self::create([
-            'username' => $username,
-            'start_time' => Carbon::now(),
-            'end_time' => Carbon::now()->addMinutes(5),
-            'status' => 'active'
-        ]);
-    }
 } 

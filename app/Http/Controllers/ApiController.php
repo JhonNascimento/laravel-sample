@@ -8,6 +8,7 @@ use App\Services\EvolutionService;
 use App\Services\MercadoPagoService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
@@ -21,7 +22,7 @@ class ApiController extends Controller
         $this->mercadoPagoService = $mercadoPagoService;
     }
     
-    public function consultarUsuario(Request $request, $remoteJid, $servico="TV"){
+    public function consultarUsuario(Request $request, $remoteJid, $servico){
     
         $telefone = preg_replace('/\D/', '', $remoteJid);
 
@@ -33,8 +34,6 @@ class ApiController extends Controller
             $get_client = $this->coreService->get_noprivado(['username' => $telefone]);
         }
 
-        //dd($get_client);
-
         if($get_client['result']){
             $vencimento = Carbon::createFromTimestamp($get_client['data']['exp_date']);
             if ($vencimento->isPast()) {
@@ -44,8 +43,16 @@ class ApiController extends Controller
             }
             $get_client['data']['vencimento'] = $vencimento->format('d/m/Y H:i');
         }
+
+        $get_client_data = Arr::only($get_client['data'], [
+            'vencimento',
+            'vencido',
+            'username',
+            'password',
+            'is_trial',
+        ]);
         
-        return response()->json($get_client);
+        return response()->json($get_client_data);
     }
 
     public function criarTeste(Request $request, $remoteJid, $bouquet){
@@ -101,42 +108,25 @@ class ApiController extends Controller
 
         Log::info("criarTesteNoprivado: $telefone");
 
-        $existeAtivo = TesteNoprivado::where('status', 'active')
-            ->where('end_time', '>', Carbon::now())
+        $existeAtivo = TesteNoprivado::where('username', $telefone)
+            ->whereIn('status', ['waiting', 'active'])
             ->exists();
 
-        if(!$existeAtivo){
-
-            $username = "JK4533";
-            $password = "JK4533";
-            
-            $data = ['username' => $username, 'status' => true];
-            $trial_create = $this->coreService->block_noprivado($data);    
-
-            //dd($trial_create);
-
-            if($trial_create['result']){
-                
-                $testeNoprivado = TesteNoprivado::create([
-                    'username' => $telefone,
-                    'start_time' => Carbon::now(),
-                    'end_time' => Carbon::now()->addMinutes(5),
-                    'status' => 'active'
-                ]);
-
-                if($testeNoprivado){
-                    $mensagem  = "⚠️ *Teste Criado com sucesso.*\n\n";
-                    $mensagem .= "🔐 *Usuário:* {$username}\n";
-                    $mensagem .= "🔑 *Senha:* {$password}\n";
-                    $mensagem .= "Aproveite e bom uso! 🚀"; 
-                }else{
-                    $mensagem  = "⚠️ *Nao foi possivel criar o teste.*\n\n";
-                }   
-            }else{
-                $mensagem  = "⚠️ *cliente já se encontra nesse status ativo.*\n\n";
-            }
+        if($existeAtivo){
+            $mensagem  = "⚠️ *Você já tem um teste na fila ou em andamento.*\n\n";
         }else{
-            $mensagem  = "⚠️ *Estamos com um teste em andamento, aguarde alguns minutos e tente novamente.*\n\n";
+            
+            $testeNoprivado = TesteNoprivado::create([
+                'username' => $telefone,
+                'status' => 'waiting'
+            ]);
+            
+            if($testeNoprivado){
+                $mensagem  = "⚠️ *Teste Criado com sucesso. Aguarde a liberação.*\n\n";
+                $mensagem .= "🔐 *Avisaremos aqui quando estiver pronto:*";
+            }else{
+                $mensagem  = "⚠️ *Não foi possível criar o teste.*\n\n";
+            }        
         }
         
         return response()->json(['mensagem' => $mensagem]);
@@ -183,33 +173,59 @@ class ApiController extends Controller
             $mensagem .= "Seu pagamento de **R$ {$valor}** foi recebido com sucesso.\n\n";
             $mensagem .= "📅 **Data da aprovação:** {$data_aprovacao}\n";
             $mensagem .= "📌 **Descrição:** {$descricao}\n";
-            $mensagem .= "Estamos liberando seu serviço. Obrigado por escolher a JK IPTV! 🚀\n";
+            $mensagem .= "Estamos liberando seu serviço. Obrigado por escolher a JKTECH! 🚀\n";
             
             $this->enviarMsg($telefone, $mensagem);
 
             // libera servico 1 mes do cliente
-            $renew_client = $this->coreService->renew_client(['username' => $telefone, 'month' => 1]);
+            if($servico == "TV"){
+                $renew_client = $this->coreService->renew_client(['username' => $telefone, 'month' => 1]);
 
-            if($renew_client['result']){
+                if($renew_client['result']){
 
-                // Pegando os dados retornados pela API
-                $username = $renew_client['data']['username'];
-                $mes = $renew_client['data']['month'];
-                $expDate = Carbon::createFromTimestamp($renew_client['data']['exp_date']); // Convertendo timestamp para data legível
-                $vencimento = $expDate->format('d/m/Y H:i');
-                $status = $renew_client['data']['mens']; // Mensagem de sucesso
-                
-                // Criando a mensagem formatada
-                $mensagem  = "Olá *{$username}*, sua mensalidade foi renovada com sucesso! 🎉\n\n";
-                $mensagem .= "📅 *Mês renovado:* {$mes}\n";
-                $mensagem .= "📆 *Novo vencimento:* {$vencimento}\n";
-                $mensagem .= "✅ *Status:* {$status}\n\n";
-                $mensagem .= "Obrigado por continuar conosco! 🚀";
+                    // Pegando os dados retornados pela API
+                    $username = $renew_client['data']['username'];
+                    $mes = $renew_client['data']['month'];
+                    $expDate = Carbon::createFromTimestamp($renew_client['data']['exp_date']); // Convertendo timestamp para data legível
+                    $vencimento = $expDate->format('d/m/Y H:i');
+                    $status = $renew_client['data']['mens']; // Mensagem de sucesso
+                    
+                    // Criando a mensagem formatada
+                    $mensagem  = "Olá *{$username}*, sua mensalidade foi renovada com sucesso! 🎉\n\n";
+                    $mensagem .= "📅 *Mês renovado:* {$mes}\n";
+                    $mensagem .= "📆 *Novo vencimento:* {$vencimento}\n";
+                    $mensagem .= "✅ *Status:* {$status}\n\n";
+                    $mensagem .= "Obrigado por continuar conosco! 🚀";
 
-                $this->enviarMsg($telefone, $mensagem);
+                    $this->enviarMsg($telefone, $mensagem);
+                }else{
+                    $mensagem .= "Houve um erro na renovação! Erro: " . $renew_client['mens'];
+                    $this->enviarMsg($telefone, $mensagem);
+                }
             }else{
-                $mensagem .= "Houve um erro na renovação! Erro: " . $renew_client['mens'];
-                $this->enviarMsg($telefone, $mensagem);
+                $renew_client = $this->coreService->renew_noprivado(['username' => $telefone, 'month' => 1]);
+
+                if($renew_client['result']){
+
+                    // Pegando os dados retornados pela API
+                    $username = $renew_client['data']['username'];
+                    $mes = $renew_client['data']['month'];
+                    $expDate = Carbon::createFromTimestamp($renew_client['data']['exp_date']); // Convertendo timestamp para data legível
+                    $vencimento = $expDate->format('d/m/Y H:i');
+                    $status = $renew_client['data']['mens']; // Mensagem de sucesso
+                    
+                    // Criando a mensagem formatada
+                    $mensagem  = "Olá *{$username}*, sua mensalidade foi renovada com sucesso! 🎉\n\n";
+                    $mensagem .= "📅 *Mês renovado:* {$mes}\n";
+                    $mensagem .= "📆 *Novo vencimento:* {$vencimento}\n";
+                    $mensagem .= "✅ *Status:* {$status}\n\n";
+                    $mensagem .= "Obrigado por continuar conosco! 🚀";
+
+                    $this->enviarMsg($telefone, $mensagem);
+                }else{
+                    $mensagem .= "Houve um erro na renovação! Erro: " . $renew_client['mens'];
+                    $this->enviarMsg($telefone, $mensagem);
+                }
             }
         }
         
@@ -226,7 +242,7 @@ class ApiController extends Controller
         return response()->json(['mensagem' => 'webhook processado']);
     }
     
-    public function criarPagamento(Request $request, $remoteJid, $servico = "TV"){
+    public function criarPagamento(Request $request, $remoteJid, $servico){
 
         $telefone = preg_replace('/\D/', '', $remoteJid);
 

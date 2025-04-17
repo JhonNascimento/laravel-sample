@@ -72,4 +72,9 @@ class CoreService
         $this->core_servico = 'renew_client';
         return $this->postData($dados);
     }
+
+    public function renew_noprivado($dados){
+        $this->core_servico = 'renew_noprivado';
+        return $this->postData($dados);
+    }
 }
