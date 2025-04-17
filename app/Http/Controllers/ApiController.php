@@ -42,16 +42,20 @@ class ApiController extends Controller
                 $get_client['data']['vencido'] = false;
             }
             $get_client['data']['vencimento'] = $vencimento->format('d/m/Y H:i');
+
+            $get_client_data = Arr::only($get_client['data'], [
+                'vencimento',
+                'vencido',
+                'username',
+                'password',
+                'is_trial',
+            ]);
+        }else{
+            $get_client_data = [
+                'mens' => $get_client['mens'],
+            ];
         }
 
-        $get_client_data = Arr::only($get_client['data'], [
-            'vencimento',
-            'vencido',
-            'username',
-            'password',
-            'is_trial',
-        ]);
-        
         return response()->json($get_client_data);
     }
 
