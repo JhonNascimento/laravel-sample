@@ -8,6 +8,9 @@
     <meta name="author" content="JKIPTV">
     <meta name="robots" content="index, follow">
     
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="G0-R50fRoTLHg16BGdW25KjIxsKa5z-uOnTVnb0BHFU" />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
