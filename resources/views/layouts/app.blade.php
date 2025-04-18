@@ -1,8 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JKIPTV - Assista seus canais favoritos em qualquer dispositivo. Mais de 2.000 canais em HD, filmes, séries e esportes ao vivo.">
+    <meta name="keywords" content="IPTV, TV online, streaming, canais ao vivo, filmes, séries, esportes, JKIPTV">
+    <meta name="author" content="JKIPTV">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="JKIPTV - TV Online em HD">
+    <meta property="og:description" content="Assista seus canais favoritos em qualquer dispositivo. Mais de 2.000 canais em HD, filmes, séries e esportes ao vivo.">
+    <meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="JKIPTV - TV Online em HD">
+    <meta property="twitter:description" content="Assista seus canais favoritos em qualquer dispositivo. Mais de 2.000 canais em HD, filmes, séries e esportes ao vivo.">
+    <meta property="twitter:image" content="{{ asset('images/og-image.jpg') }}">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>JKIPTV - Seu Melhor Serviço de IPTV</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
