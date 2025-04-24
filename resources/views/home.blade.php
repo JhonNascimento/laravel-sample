@@ -478,93 +478,233 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="planos" class="py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <section id="planos" class="py-5" style="background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold text-primary">JK Play</h2>
-                <p class="text-muted">O melhor plano de IPTV por apenas</p>
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill">Melhor Oferta</span>
+                <h2 class="display-4 fw-bold text-white mb-2">JK Play</h2>
+                <p class="text-light opacity-75">O melhor plano de IPTV por apenas</p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6">
-                    <div class="card price-card border-0 shadow-lg">
-                        <div class="card-body p-4">
+                    <div class="card price-card border-0 shadow-lg hover-effect" style="border-radius: 20px; background: rgba(255, 255, 255, 0.95);">
+                        <div class="card-body p-5">
                             <div class="text-center mb-4">
-                                <div class="price-tag">
-                                    <h3 class="text-primary fw-bold mb-0">R$ 20,00</h3>
-                                    <small class="text-muted">por mês</small>
+                                <div class="price-tag position-relative d-inline-block">
+                                    <span class="position-absolute top-0 start-0 translate-middle badge bg-danger rounded-pill" style="font-size: 0.8rem;">
+                                        Oferta Limitada
+                                    </span>
+                                    <h3 class="display-4 fw-bold text-primary mb-0">R$ 20,00</h3>
+                                    <p class="text-muted">por mês</p>
                                 </div>
                             </div>
-                            <div class="row g-3 mb-4">
-                                <div class="col-6">
-                                    <div class="feature-item text-center p-3">
-                                        <i class="fas fa-tv fa-2x text-primary mb-2"></i>
-                                        <p class="mb-0">+2.000 Canais</p>
-                                        <small class="text-muted">SD/HD/FHD/4K</small>
+
+                            <!-- Principais Características -->
+                            <div class="features-grid mb-4">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="feature-item p-3 bg-light rounded-3 d-flex align-items-center">
+                                            <i class="fas fa-film text-primary fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1">+300 mil</h6>
+                                                <small class="text-muted">Conteúdos</small>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="feature-item text-center p-3">
-                                        <i class="fas fa-film fa-2x text-primary mb-2"></i>
-                                        <p class="mb-0">+25.000 Filmes</p>
-                                        <small class="text-muted">Lançamentos</small>
+                                    <div class="col-md-6">
+                                        <div class="feature-item p-3 bg-light rounded-3 d-flex align-items-center">
+                                            <i class="fas fa-tv text-primary fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1">Qualidade</h6>
+                                                <small class="text-muted">SD até 4K HDR</small>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="feature-item text-center p-3">
-                                        <i class="fas fa-video fa-2x text-primary mb-2"></i>
-                                        <p class="mb-0">+6.000 Séries</p>
-                                        <small class="text-muted">e Animes</small>
+                                    <div class="col-md-6">
+                                        <div class="feature-item p-3 bg-light rounded-3 d-flex align-items-center">
+                                            <i class="fas fa-broadcast-tower text-primary fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1">100+ Rádios</h6>
+                                                <small class="text-muted">Ao Vivo</small>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="feature-item text-center p-3">
-                                        <i class="fas fa-headset fa-2x text-primary mb-2"></i>
-                                        <p class="mb-0">Suporte 24/7</p>
-                                        <small class="text-muted">Via WhatsApp</small>
+                                    <div class="col-md-6">
+                                        <div class="feature-item p-3 bg-light rounded-3 d-flex align-items-center">
+                                            <i class="fas fa-calendar-alt text-primary fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1">EPG</h6>
+                                                <small class="text-muted">Guia Completo</small>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="additional-features mb-4">
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>Guia de Programação [EPG]</span>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>Atualizações de Catálogo</span>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>Canais Internacionais (Opcional)</span>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>Canais Adultos (Opcional)</span>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <span>1 Tela Simultânea</span>
+
+                            <!-- Recursos -->
+                            <div class="features mb-4">
+                                <h5 class="text-primary mb-3">Recursos Inclusos</h5>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            <span>1 Conexão Simultânea</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            <span>Canais Adultos (Opcional)</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            <span>Suporte 24/7</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            <span>Atualização Diária</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-grid gap-2">
-                                <a href="https://wa.me/5592855657830?text=Quero%20assinar%20o%20plano%20JK%20Play" class="btn btn-primary" target="_blank">
-                                    <i class="fab fa-whatsapp me-2"></i>Assinar Agora
-                                </a>
-                                <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" class="btn btn-outline-primary" target="_blank">
-                                    <i class="fas fa-play-circle me-2"></i>Teste Grátis
-                                </a>
+
+                            <!-- Dispositivos -->
+                            <div class="devices mb-4">
+                                <h5 class="text-primary mb-3">Disponível em</h5>
+                                <div class="device-grid">
+                                    <div class="row g-2">
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fas fa-tv fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">Smart TV</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fas fa-box fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">TV Box</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fas fa-desktop fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">Web Player</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fab fa-android fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">Android</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fab fa-apple fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">iPhone</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <div class="device-item text-center p-2">
+                                                <i class="fas fa-tablet-alt fa-lg mb-2 text-primary"></i>
+                                                <p class="small mb-0">Tablet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <small class="text-muted">
+                                            + Chromecast, FireStick, PlayStation, Xbox e outros
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botões de Ação -->
+                            <div class="action-buttons">
+                                <div class="d-grid gap-2">
+                                    <a href="https://wa.me/5592855657830?text=Quero%20assinar%20o%20plano%20JK%20Play" 
+                                       class="btn btn-primary btn-lg position-relative overflow-hidden" 
+                                       target="_blank"
+                                       style="background: linear-gradient(45deg, #2196f3, #1976d2);">
+                                        <i class="fab fa-whatsapp me-2"></i>
+                                        <span>Assinar Agora</span>
+                                        <div class="ripple"></div>
+                                    </a>
+                                    <a href="https://wa.me/5592855657830?text=Quero%20fazer%20um%20teste%20da%20JKIPTV" 
+                                       class="btn btn-outline-primary btn-lg" 
+                                       target="_blank">
+                                        <i class="fas fa-play-circle me-2"></i>
+                                        Teste Grátis
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <small class="text-muted">
+                <small class="text-light opacity-75">
                     <i class="fas fa-info-circle me-1"></i>
-                    Canais adultos e internacionais são opcionais, podendo ser solicitada a adição ou remoção a qualquer momento
+                    Canais adultos são opcionais, podendo ser solicitada a adição ou remoção a qualquer momento
                 </small>
             </div>
         </div>
+
+        <style>
+            .hover-effect {
+                transition: transform 0.3s ease;
+            }
+            .hover-effect:hover {
+                transform: translateY(-5px);
+            }
+            .feature-item {
+                transition: all 0.3s ease;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+            .feature-item:hover {
+                background: #f8f9fa;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+            .device-item {
+                transition: all 0.3s ease;
+                border-radius: 10px;
+            }
+            .device-item:hover {
+                background: #f8f9fa;
+                transform: translateY(-2px);
+            }
+            .btn-primary {
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+            }
+            .ripple {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+                transform: translateX(-100%);
+                animation: ripple 1.5s infinite;
+            }
+            @keyframes ripple {
+                0% {
+                    transform: translateX(-100%);
+                }
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+            .badge {
+                font-weight: 500;
+            }
+            .price-tag {
+                padding: 1rem;
+                border-radius: 15px;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+        </style>
     </section>
 
     <!-- Jogos do Dia Section -->
